@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/marcusaandahl/disys-hw4/proto";
+
+package proto;
+
+service PeerProto {
+  rpc CheckConnection(ConnectRequest) returns (ConnectResponse) {}
+  rpc LeaveNetwork(LeaveRequest) returns (google.protobuf.Empty) {}
+  rpc Vote(VoteRequest) returns (google.protobuf.Empty) {}
+}
+
+message VoteRequest {
+  int32 requesterId = 1;
+  int32 deniedBy = 2;
+  bool denied = 3;
+}
+
+message ConnectRequest {
+  int32 newPeerPort = 2;
+}
+
+message ConnectResponse {
+  int32 newPeerNextPeerId = 1;
+  int32 newPeerNextPeerPort = 2;
+  int32 newPeerId = 3;
+}
+
+message LeaveRequest{
+  int32 traitorId = 1;
+  int32 traitorNextId = 2;
+  int32 traitorNextPort = 3;
+}
